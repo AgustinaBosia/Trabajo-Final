@@ -1,2 +1,4 @@
 # Trabajo-Final
-Schahovskoy, Karol Alexia    Polanco, Martina    Bosia, Agustina Maria
+Bosia, Agustina Maria
+Polanco, Martina  
+Schahovskoy, Karol Alexia    
