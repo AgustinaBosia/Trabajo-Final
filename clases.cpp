@@ -12,6 +12,7 @@ Transaccion::Transaccion(int mes1, int ano1, int _tipo, float _monto){
     monto=_monto;
 }
 
+
 Transaccion::Transaccion(){
     mes=0;
     ano=0;
@@ -50,12 +51,19 @@ void Cuenta::depositar(float monto, int moneda) {
     }
 }
 void Cuenta::extraer(float monto, int moneda) {
+    // excepción
+
+    if(monto<0){
+        throw "error: negativo";
+    }
+    
     if (moneda == 1) {
         cajaPeso -= monto;
     }
     else if (moneda == 2){
         cajaDolar -= monto;
     }
+
 }
 float Cuenta::getCajaPeso(){
     return cajaPeso;
