@@ -23,7 +23,6 @@ class Cuenta{
     private:
     float cajaPeso, cajaDolar;
     public:
-
     Cuenta();
     Cuenta(float,float);
     void depositar(float, int);
