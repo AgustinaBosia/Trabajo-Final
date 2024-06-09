@@ -142,3 +142,48 @@ int Empleado::getIngreso(){
 void Empleado::setCargo(string _cargo){
     cargo=_cargo;
 }
+
+
+
+void archivo::escritura(){
+
+// abre el archivo para escritura 
+    ofstream variableescribe ("clientes.txt");
+
+// verifica existencia de archivo
+    if (!variableescribe){
+        cout << "error al abrir el archivo"<< endl;
+
+        exit (EXIT_FAILURE);
+    }
+
+    int num;
+
+    cout << "ingrese el numero a multiplicar: ";
+    cin >> num;
+
+
+//escribe archivo
+    variableescribe << num << " ";
+        
+    variableescribe<<endl;
+    
+}
+
+void archivo::lectura(){
+    ifstream variablelectura ("clientes.txt");
+// verifica erchivo
+    if (!variablelectura.is_open()){
+        cout << "error" <<endl;
+        exit (EXIT_FAILURE);
+    }
+
+    int valor;
+
+    int i = 0;
+
+ // lee datos en archivo
+    while (variablelectura >> valor){
+        cout << valor;
+    }
+}

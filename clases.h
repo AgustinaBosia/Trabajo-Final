@@ -22,6 +22,8 @@ class Transaccion{
 class Cuenta{
     private:
     float cajaPeso, cajaDolar;
+    Transaccion t;
+
     public:
     Cuenta();
     Cuenta(float,float);
@@ -32,7 +34,7 @@ class Cuenta{
 };
 
 class Persona{
-    private:
+    public:
     long dni;
     int añoIngreso;
     string nombre;
@@ -47,9 +49,11 @@ class Cliente : public Persona{
     public:
     int estado,nivel;
     Cuenta cuenta;
-    Transaccion t;
+    tarjetaCredit tarjeta;
+    
+
     public:
-    Cliente(long,string,int,int,int,Cuenta);
+    Cliente(long dni,string nombre,int tipo,int añoIng,int estado,Cuenta c);
     long getDni(); 
     string getNombre();
     int getIngreso();
@@ -59,6 +63,31 @@ class Cliente : public Persona{
     float getCajaDolar();
     void realizTrans(float, int, int, int mes, int ano);
 };
+
+class tarjetaCredit{
+    public:
+    string tarjeta;
+
+    public:
+    tarjetaCredit(string t);
+    void tarCred();
+};
+
+tarjetaCredit::tarjetaCredit(string t){
+    tarjeta=t;
+}
+
+void tarjetaCredit::tarCred(){
+    if(tarjeta=="plata" or tarjeta=="Plata"){
+        cout<<"No tienes acceso a tarjetas de credito"<<endl;
+    }
+    else if(tarjeta=="oro" or tarjeta=="Oro"){
+        cout <<"puedes acceder a la tarjeta de crédito Credix con límite de crédito 250000"<<endl;
+    }
+    else if (tarjeta=="Platino" or tarjeta=="platino"){
+        cout <<"puedes acceder a la tarjeta de crédito Premium con límite de crédito 500000"<<endl;
+    }
+}
 
 class Empleado : public Persona{
     private:
@@ -78,50 +107,6 @@ class archivo{
     void lectura();
 
 };
-
-void archivo::escritura(){
-
-// abre el archivo para escritura 
-    ofstream variableescribe ("clientes.txt");
-
-// verifica existencia de archivo
-    if (!variableescribe){
-        cout << "error al abrir el archivo"<< endl;
-
-        exit (EXIT_FAILURE);
-    }
-
-    int num;
-
-    cout << "ingrese el numero a multiplicar: ";
-    cin >> num;
-
-
-//escribe archivo
-    variableescribe << num << " ";
-        
-    variableescribe<<endl;
-    
-}
-
-void archivo::lectura(){
-    ifstream variablelectura ("clientes.txt");
-// verifica erchivo
-    if (!variablelectura.is_open()){
-        cout << "error" <<endl;
-        exit (EXIT_FAILURE);
-    }
-
-    int valor;
-
-    int i = 0;
-
- // lee datos en archivo
-    while (variablelectura >> valor){
-        cout << valor;
-    }
-}
-
 
 class banco {
     public:
