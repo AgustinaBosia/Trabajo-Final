@@ -23,16 +23,20 @@ void solicitarFecha(int& _mes, int& _ano) {
     bool fechaValida = false;
 
     while (!fechaValida) {
-        cout << "Ingrese el mes: ";
-        cin >> mes;
-        cout << "Ingrese el año: ";
-        cin >> ano;
-        if (mes > 12 || mes < 1 || ano < 0) {
-            cout << "Fecha inválida. Intente nuevamente." << endl;
-        } else {
-            _mes = mes;
-            _ano = ano;
-            fechaValida = true;
+        try {
+            cout << "Ingrese el mes: ";
+            cin >> mes;
+            cout << "Ingrese el año: ";
+            cin >> ano;
+            if (mes > 12 || mes < 1 || ano < 1) {
+                throw "Fecha inválida. Intente nuevamente.";
+            } else {
+                _mes = mes;
+                _ano = ano;
+                fechaValida = true;
+            }
+        } catch (const char* msg) {
+            cout << "Error: " << msg << endl;
         }
     }
 }
@@ -69,12 +73,11 @@ void menuCliente(Cliente array[], int &i) {
         case 3: {
             cout << "¿En que caja desea operar? (1=peso, 2=dolar)" << endl;
             cin >> caja;
-            cout << "¿Que operacion desea realizar?(1= deposito, 2=extraccion)" << endl;
+            cout << "¿Que operacion desea realizar?(1=deposito, 2=extraccion)" << endl;
             cin >> op;
             cout << "Ingrese el monto" << endl;
             cin >> monto;
             solicitarFecha(mes, ano);
-
             Cl.realizTrans(monto, op, caja, mes, ano);
             Transaccion Tr(mes, ano, op, monto);
             Cl.cuent.t.getMonto();
