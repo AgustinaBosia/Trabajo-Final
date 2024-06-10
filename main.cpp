@@ -14,7 +14,7 @@ void altaCuenta(Cliente& cliente) {
 }
 
 void bajaCuenta(Cliente& cliente) {
-    cliente.estado=0; // Reinicia la cuenta a 0
+    cliente.estado=0;
     cout << "Cuenta dada de baja exitosamente." << endl;
 }
 
