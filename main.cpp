@@ -2,6 +2,22 @@
 #include "clases.h"
 using namespace std;
 
+void altaCuenta(Cliente& cliente) {
+    float saldoPeso, saldoDolar;
+    cout << "Ingrese el saldo inicial en pesos: ";
+    cin >> saldoPeso;
+    cout << "Ingrese el saldo inicial en dolares: ";
+    cin >> saldoDolar;
+    Cuenta nuevaCuenta(saldoPeso, saldoDolar);
+    cliente.cuent = nuevaCuenta;
+    cout << "Cuenta creada exitosamente." << endl;
+}
+
+void bajaCuenta(Cliente& cliente) {
+    cliente.estado=0; // Reinicia la cuenta a 0
+    cout << "Cuenta dada de baja exitosamente." << endl;
+}
+
 void solicitarFecha(int& _mes, int& _ano) {
     int mes, ano;
     bool fechaValida = false;
@@ -25,7 +41,7 @@ void menuCliente(Cliente array[], int &i) {
     int mes, ano, nro;
     Cuenta Cu(1000, 500);
 
-    cout << "Ingrese el nro de Cliente: (su dni)";
+    cout << "Ingrese el nro de Cliente (su DNI): "<<endl;
     cin >> nro;
 
     Cliente Cl(nro, "Juan Perez", 2020, 1, 2, Cu);
@@ -41,14 +57,16 @@ void menuCliente(Cliente array[], int &i) {
     cin >> op;
 
     switch (op) {
-        case 1:
-            // Código para el caso 1
+        case 1:{
+            altaCuenta(array[i-1]);
             break;
-        case 2:
-        
+        }
+        case 2:{
+            bajaCuenta(array[i-1]);
             // Establecer método de búsqueda de cliente
             break;
-        case 3: 
+        }
+        case 3: {
             cout << "¿En que caja desea operar? (1=peso, 2=dolar)" << endl;
             cin >> caja;
             cout << "¿Que operacion desea realizar?(1= deposito, 2=extraccion)" << endl;
@@ -61,8 +79,10 @@ void menuCliente(Cliente array[], int &i) {
             Transaccion Tr(mes, ano, op, monto);
             Cl.cuent.t.getMonto();
             break;
-        default:
-            break;
+        }
+        default:{
+        break;
+        }
     }
 }
 
