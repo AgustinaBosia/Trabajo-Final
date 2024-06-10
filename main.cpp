@@ -38,21 +38,42 @@ void menuCliente(){
     Cuenta Cu(1000, 500);
     Cliente Cl(12345678, "Juan Perez", 2020, 1, 2, Cu);
     int caja,op, monto;
-    cout<<"¿En que caja desea operar? (1=peso , 2=dolar)"<<endl;
-    cin>>caja;
-    cout<<"¿Que operacion desea realizar?(1= deposito, 2=extraccion)"<<endl;
-    cin>>op;
-    cout<<"Ingrese el monto"<<endl;
-    cin>>monto;
-    solicitarFecha(dia,mes,año);
 
-    Cl.realizTrans(monto, op, caja, mes,año);
-    Transaccion Tr(mes, año,op, monto );
-    Cl.t.getMonto();
+    cout<<"desea abrir una nueva cuenta o dar de baja una existente? (1=nueva, 2=baja)"<<endl;
+    cin>>op;
+    switch (op)
+    {
+    case 1:
+        cout<<"¿En que caja desea operar? (1=peso , 2=dolar)"<<endl;
+        cin>>caja;
+        cout<<"¿Que operacion desea realizar?(1= deposito, 2=extraccion)"<<endl;
+        cin>>op;
+        cout<<"Ingrese el monto"<<endl;
+        cin>>monto;
+        solicitarFecha(dia,mes,año);
+
+        Cl.realizTrans(monto, op, caja, mes,año);
+        Transaccion Tr(mes, año,op, monto );
+        Cl.cuent.t.getMonto();
+        break;
+    
+    case 2:
+        // ESTABLECER METODO DE BUSQUEDA DE CLIENTE
+        break;
+    default:
+        break;
+    }
+
+
+    
 }
     
 void menuEmpleado(){
     Empleado(43385086, "JUan Bergia", 2024, "Gerente");
+    cout<<"¿que desea hacer?"<<endl;
+    cout<<"1. Cliente"<<endl;
+    cout<<"2. Empleado"<<endl;
+    cout<<"3. Salir"<<endl;
 }
 
 void menuDueño(){}
@@ -63,8 +84,7 @@ void menu(){
         cout<<"¿Que desea hacer?"<<endl;
         cout<<"1. Cliente"<<endl;
         cout<<"2. Empleado"<<endl;
-        cout<<"3. Dueño"<<endl;
-        cout<<"4. Salir"<<endl;
+        cout<<"3. Salir"<<endl;
         cin>>op;
         switch (op)
         {
@@ -75,9 +95,6 @@ void menu(){
             menuEmpleado();
             break;
         case 3:
-            menuDueño();
-            break;
-        case 4:
             break;
         default:
         cout<<"Opcion no válida, intente otra vez"<<endl;

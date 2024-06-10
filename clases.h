@@ -20,7 +20,7 @@ class Transaccion{
 };
 
 class Cuenta{
-    private:
+    public:
     float cajaPeso, cajaDolar;
     Transaccion t;
 
@@ -48,7 +48,7 @@ class Persona{
 class Cliente : public Persona{
     public:
     int estado,nivel;
-    Cuenta cuenta;
+    Cuenta cuent;
     tarjetaCredit tarjeta;
     
 
@@ -69,9 +69,13 @@ class tarjetaCredit{
     string tarjeta;
 
     public:
+    tarjetaCredit();
     tarjetaCredit(string t);
     void tarCred();
 };
+tarjetaCredit::tarjetaCredit(){
+    tarjeta="";
+}
 
 tarjetaCredit::tarjetaCredit(string t){
     tarjeta=t;
@@ -101,7 +105,7 @@ class Empleado : public Persona{
 
 class archivo{
     private:
-
+// arreglos?
     protected:
     void escritura();
     void lectura();
