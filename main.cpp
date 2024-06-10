@@ -33,10 +33,11 @@ void solicitarFecha(int& _dia, int& _mes, int& _año) {
     _año=año;
 }
 
-void menuCliente(){
+void menuCliente(Cliente array[]){
     int dia,mes,año;
     Cuenta Cu(1000, 500);
     Cliente Cl(12345678, "Juan Perez", 2020, 1, 2, Cu);
+    array[0]=Cl;
     int caja,op, monto;
 
     cout<<"desea abrir una nueva cuenta o dar de baja una existente? (1=nueva, 2=baja)"<<endl;
@@ -69,18 +70,48 @@ void menuCliente(){
 }
     
 void menuEmpleado(){
+    int op;
     Empleado(43385086, "JUan Bergia", 2024, "Gerente");
     cout<<"¿que desea hacer?"<<endl;
-    cout<<"1. Cliente"<<endl;
-    cout<<"2. Empleado"<<endl;
-    cout<<"3. Salir"<<endl;
+    cout<<"1. Detalle de cliente por numero de cliente"<<endl;
+    cout<<"2. Listado de todos los clientes en el banco"<<endl;
+    cout<<"3. Listado de transacciones por cliente"<<endl;
+    cout<<"Informes de extracciones y depósitos según los siguiente criterios:"<<endl;
+    cout<<" 4. En un mes determinado"<<endl;
+    cout<<" 5. En un año determinado"<<endl;
+    cout<<" 6. Todas"<<endl;
+
+    cin>>op;
+    switch (op)
+    {
+    case 1:
+        
+        break;
+    case 2:
+        
+        break;
+    case 3:
+        
+        break;
+    case 4:
+        
+        break;
+    case 5:
+        
+        break;
+    case 6:
+        
+        break;
+
+    default:
+        break;
+    }
 }
 
-void menuDueño(){}
-
 void menu(){
+    Cliente array[100];
     int op=5;
-    while(op>4||op<0){
+    while(op!=3){
         cout<<"¿Que desea hacer?"<<endl;
         cout<<"1. Cliente"<<endl;
         cout<<"2. Empleado"<<endl;
@@ -89,7 +120,7 @@ void menu(){
         switch (op)
         {
         case 1:
-            menuCliente();
+            menuCliente(array);
             break;
         case 2:
             menuEmpleado();

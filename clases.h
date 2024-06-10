@@ -39,6 +39,7 @@ class Persona{
     int añoIngreso;
     string nombre;
     public:
+    Persona();
     Persona(long,string,int);
     virtual long getDni();
     virtual string getNombre();
@@ -53,6 +54,7 @@ class Cliente : public Persona{
     
 
     public:
+    Cliente();
     Cliente(long dni,string nombre,int tipo,int añoIng,int estado,Cuenta c);
     long getDni(); 
     string getNombre();

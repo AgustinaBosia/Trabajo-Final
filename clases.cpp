@@ -74,6 +74,9 @@ float Cuenta::getCajaDolar(){
 
 
 //Persona
+Persona::Persona(){
+    
+}
 Persona::Persona(long _dni, string _nombre, int _añoIngreso){
     dni=_dni;
     nombre=_nombre;
@@ -91,11 +94,18 @@ int Persona::getIngreso(){
 
 
 //Cliente
+
+Cliente::Cliente(){
+    dni=0;
+    nombre="";
+    añoIngreso=0;
+
+}
 Cliente::Cliente(long _dni, string _nombre, int _añoIngreso, int _estado, int _nivel, Cuenta _cuenta): Persona(_dni, _nombre,_añoIngreso)
 {
     estado=_estado;
     nivel=_nivel;
-    cuenta=_cuenta;
+    cuent=_cuenta;
 }
 long Cliente::getDni(){
     return Persona::getDni();
@@ -113,16 +123,16 @@ int Cliente::getNivel(){
     return nivel;
 }
 float Cliente::getCajaPeso(){
-    return cuenta.getCajaPeso();
+    return cuent.getCajaPeso();
 }
 float Cliente::getCajaDolar(){
-    return cuenta.getCajaDolar();
+    return cuent.getCajaDolar();
 }
 void Cliente::realizTrans(float _monto, int _tipo, int _moneda, int mes1,int ano1 ) {
     if (_tipo == 1) {
-        cuenta.depositar(_monto, _moneda);
+        cuent.depositar(_monto, _moneda);
     } else if (_tipo== 2) {
-        cuenta.extraer(_monto, _moneda);
+        cuent.extraer(_monto, _moneda);
     }
     Transaccion trans(0,0, _tipo, _monto);
     //**
