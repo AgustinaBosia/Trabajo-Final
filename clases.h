@@ -2,7 +2,7 @@
 #include <fstream>
 using namespace std;
 
-class Transaccion{
+class Transaccion {
     private:
     int tipo;
     float monto;
@@ -11,7 +11,7 @@ class Transaccion{
 
     public:
     Transaccion();
-    Transaccion(int mes, int ano,int,float);
+    Transaccion(int mes, int ano, int tipo, float monto);
     int getDia();
     int getMes();
     int getAño();
@@ -19,58 +19,35 @@ class Transaccion{
     float getMonto();
 };
 
-class Cuenta{
+class Cuenta {
     public:
     float cajaPeso, cajaDolar;
     Transaccion t;
 
     public:
     Cuenta();
-    Cuenta(float,float);
-    void depositar(float, int);
-    void extraer(float, int);
+    Cuenta(float cajaPeso, float cajaDolar);
+    void depositar(float monto, int moneda);
+    void extraer(float monto, int moneda);
     float getCajaPeso();
     float getCajaDolar();
 };
 
-class Persona{
+class Persona {
     public:
     long dni;
     int añoIngreso;
     string nombre;
+    
     public:
     Persona();
-    Persona(long,string,int);
+    Persona(long dni, string nombre, int añoIngreso);
     virtual long getDni();
     virtual string getNombre();
     virtual int getIngreso();
 };
 
-class Cliente : public Persona{
-    public:
-    int estado,nivel;
-    Cuenta cuent;
-    tarjetaCredit tarjeta;
-    
-
-    public:
-    Cliente();
-    Cliente(long dni,string nombre,int añoIn,int estado,int nivel,Cuenta c);
-    long getDni(); 
-    string getNombre();
-    int getIngreso();
-    int getEstado();//0baja 1alta
-    int getNivel();// 1plata 2oro 3platino
-    float getCajaPeso();
-    float getCajaDolar();
-    void realizTrans(float, int, int, int mes, int ano);
-
-    friend ostream& operator<<(ostream& os, const Cliente& Cl);
-};
-
-
-
-class tarjetaCredit{
+class tarjetaCredit {
     public:
     string tarjeta;
 
@@ -79,43 +56,43 @@ class tarjetaCredit{
     tarjetaCredit(string t);
     void tarCred();
 };
-tarjetaCredit::tarjetaCredit(){
-    tarjeta="";
-}
 
-tarjetaCredit::tarjetaCredit(string t){
-    tarjeta=t;
-}
+class Cliente : public Persona{
+    public:
+    int estado, nivel;
+    Cuenta cuent;
+    tarjetaCredit tarjeta;
 
-void tarjetaCredit::tarCred(){
-    if(tarjeta=="plata" or tarjeta=="Plata"){
-        cout<<"No tienes acceso a tarjetas de credito"<<endl;
-    }
-    else if(tarjeta=="oro" or tarjeta=="Oro"){
-        cout <<"puedes acceder a la tarjeta de crédito Credix con límite de crédito 250000"<<endl;
-    }
-    else if (tarjeta=="Platino" or tarjeta=="platino"){
-        cout <<"puedes acceder a la tarjeta de crédito Premium con límite de crédito 500000"<<endl;
-    }
-}
+    public:
+    Cliente();
+    Cliente(long dni, string nombre, int añoIngreso, int estado, int nivel, Cuenta cuent);
+    long getDni();
+    string getNombre();
+    int getIngreso();
+    int getEstado();
+    int getNivel();
+    float getCajaPeso();
+    float getCajaDolar();
+    void realizTrans(float monto, int tipo, int moneda, int mes1, int ano1);
+
+    friend ostream& operator<<(ostream& os, const Cliente& Cl);
+};
 
 class Empleado : public Persona{
     private:
     string cargo;
     public:
-    Empleado(long,string,int,string);
+    Empleado(long dni, string nombre, int añoIngreso, string cargo);
     string getCargo();
-    void setCargo(string);
+    void setCargo(string cargo);
     int getIngreso();
 };
 
-class archivo{
+class archivo {
     private:
-// arreglos?
     protected:
     void escritura();
     void lectura();
-
 };
 
 class banco {
@@ -123,5 +100,4 @@ class banco {
     Empleado empleado1;
     Cliente cliente1;
     archivo archivo1;
-
 };

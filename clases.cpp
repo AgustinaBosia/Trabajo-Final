@@ -1,226 +1,243 @@
-#include <iostream>
 #include "clases.h"
-using namespace std;
 
+// Implementación de los constructores y métodos de Transaccion
 
-
-//Transaccion
-Transaccion::Transaccion(int mes1, int ano1, int _tipo, float _monto){
-    mes=mes1;
-    ano=ano1;
-    tipo=_tipo;
-    monto=_monto;
+Transaccion::Transaccion(int mes1, int ano1, int _tipo, float _monto) {
+    mes = mes1;
+    ano = ano1;
+    tipo = _tipo;
+    monto = _monto;
 }
 
-
-Transaccion::Transaccion(){
-    mes=0;
-    ano=0;
-    tipo=0;
-    monto=0;
+Transaccion::Transaccion() {
+    mes = 0;
+    ano = 0;
+    tipo = 0;
+    monto = 0;
 }
 
-int Transaccion::getMes(){
+int Transaccion::getMes() {
     return mes;
 }
-int Transaccion::getAño(){
+
+int Transaccion::getAño() {
     return ano;
 }
-int Transaccion::getTipo(){
+
+int Transaccion::getTipo() {
     return tipo;
 }
-float Transaccion::getMonto(){
+
+float Transaccion::getMonto() {
     return monto;
 }
 
-//Cuenta
-Cuenta::Cuenta(){
-    cajaDolar=0;
-    cajaPeso=0;
+// Implementación de los constructores y métodos de Cuenta
+
+Cuenta::Cuenta() {
+    cajaDolar = 0;
+    cajaPeso = 0;
 }
-Cuenta::Cuenta(float _cajaPeso, float _cajaDolar){
-    cajaPeso=_cajaPeso;
-    cajaDolar=_cajaDolar;
+
+Cuenta::Cuenta(float _cajaPeso, float _cajaDolar) {
+    cajaPeso = _cajaPeso;
+    cajaDolar = _cajaDolar;
 }
+
 void Cuenta::depositar(float monto, int moneda) {
     if (moneda == 1) {
         cajaPeso += monto;
     }
-    else if (moneda == 2){
+    else if (moneda == 2) {
         cajaDolar += monto;
     }
 }
-void Cuenta::extraer(float monto, int moneda) {
-    // excepción
 
-    if(monto<0){
-        throw "error: negativo";
+void Cuenta::extraer(float monto, int moneda) {
+    if (monto < 0) {
+        throw "error: monto negativo";
     }
-    
     if (moneda == 1) {
         cajaPeso -= monto;
     }
-    else if (moneda == 2){
+    else if (moneda == 2) {
         cajaDolar -= monto;
     }
-
 }
-float Cuenta::getCajaPeso(){
+
+float Cuenta::getCajaPeso() {
     return cajaPeso;
 }
-float Cuenta::getCajaDolar(){
+
+float Cuenta::getCajaDolar() {
     return cajaDolar;
 }
 
+//  constructores y métodos de PERSONA
 
-//Persona
-Persona::Persona(){
-    
+Persona::Persona() {}
+
+Persona::Persona(long _dni, string _nombre, int _añoIngreso) {
+    dni = _dni;
+    nombre = _nombre;
+    añoIngreso = _añoIngreso;
 }
-Persona::Persona(long _dni, string _nombre, int _añoIngreso){
-    dni=_dni;
-    nombre=_nombre;
-    añoIngreso=_añoIngreso;
-}
-long Persona::getDni(){
+
+long Persona::getDni() {
     return dni;
 }
-string Persona::getNombre(){
+
+string Persona::getNombre() {
     return nombre;
 }
-int Persona::getIngreso(){
+
+int Persona::getIngreso() {
     return añoIngreso;
 }
 
+// Implementación de los constructores y métodos de Cliente
 
-//Cliente
-
-Cliente::Cliente(){
-    dni=0;
-    nombre="";
-    añoIngreso=0;
-
+Cliente::Cliente() : Persona() {
+    estado = 0;
+    nivel = 0;
 }
-Cliente::Cliente(long _dni, string _nombre, int _añoIngreso, int _estado, int _nivel, Cuenta _cuenta): Persona(_dni, _nombre,_añoIngreso)
-{
-    dni=_dni;
-    nombre=_nombre;
-    añoIngreso=_añoIngreso;
-    estado=_estado;
-    nivel=_nivel;
-    cuent=_cuenta;
+
+Cliente::Cliente(long _dni, string _nombre, int _añoIngreso, int _estado, int _nivel, Cuenta _cuenta) : Persona(_dni, _nombre, _añoIngreso) {
+    estado = _estado;
+    nivel = _nivel;
+    cuent = _cuenta;
 }
-long Cliente::getDni(){
+
+long Cliente::getDni() {
     return Persona::getDni();
 }
-string Cliente::getNombre(){
+
+string Cliente::getNombre() {
     return Persona::getNombre();
 }
-int Cliente::getIngreso(){
+
+int Cliente::getIngreso() {
     return Persona::getIngreso();
 }
-int Cliente::getEstado(){
+
+int Cliente::getEstado() {
     return estado;
 }
-int Cliente::getNivel(){
+
+int Cliente::getNivel() {
     return nivel;
 }
-float Cliente::getCajaPeso(){
+
+float Cliente::getCajaPeso() {
     return cuent.getCajaPeso();
 }
-float Cliente::getCajaDolar(){
+
+float Cliente::getCajaDolar() {
     return cuent.getCajaDolar();
 }
-void Cliente::realizTrans(float _monto, int _tipo, int _moneda, int mes1,int ano1 ) {
+
+void Cliente::realizTrans(float _monto, int _tipo, int _moneda, int mes1, int ano1) {
     if (_tipo == 1) {
         cuent.depositar(_monto, _moneda);
-    } else if (_tipo== 2) {
+    }
+    else if (_tipo == 2) {
         cuent.extraer(_monto, _moneda);
     }
-    Transaccion trans(0,0, _tipo, _monto);
-    //**
+    Transaccion trans(mes1, ano1, _tipo, _monto);
 }
 
-ostream& operator<<(ostream& os, Cliente& Cl) {
+ostream& operator<<(ostream& os, const Cliente& Cl) {
     string tip;
-    if(Cl.nivel==1){
-        tip="plata";
+    if (Cl.nivel == 1) {
+        tip = "plata";
     }
-    else if(Cl.nivel==2){
-        tip="oro";
+    else if (Cl.nivel == 2) {
+        tip = "oro";
     }
-    else if(Cl.nivel==2){
-        tip="platino";
+    else if (Cl.nivel == 3) {
+        tip = "platino";
     }
 
     string est;
-    if(Cl.estado==1){
-        est="alta";
+    if (Cl.estado == 1) {
+        est = "alta";
     }
-    else if(Cl.estado==0){
-        est="baja";
+    else if (Cl.estado == 0) {
+        est = "baja";
     }
 
-    os << "( nro: " << Cl.dni << ", nombre: " << Cl.nombre << ", año de ingreso: "<<Cl.añoIngreso<<", estado: "<<est<<", nivel: "<<tip<<", cuenta pesos: "<<Cl.getCajaPeso()<<", cuenta dolares: "<<Cl.getCajaDolar();
+    os << "( nro: " << Cl.dni << ", nombre: " << Cl.nombre << ", año de ingreso: " << Cl.añoIngreso << ", estado: " << est << ", nivel: " << tip << ", cuenta pesos: " << "Cl.getCajaPeso()" << ", cuenta dolares: " << "a" << " )";
     return os;
 }
 
+// Implementación de los constructores y métodos de Empleado
 
-//Empleado
-Empleado::Empleado(long _dni, string _nombre, int _añoIngreso, string _cargo): Persona(_dni, _nombre, _añoIngreso){
-    cargo=_cargo;
+Empleado::Empleado(long _dni, string _nombre, int _añoIngreso, string _cargo) : Persona(_dni, _nombre, _añoIngreso) {
+    cargo = _cargo;
 }
-string Empleado::getCargo(){
+
+string Empleado::getCargo() {
     return cargo;
 }
-int Empleado::getIngreso(){
+
+int Empleado::getIngreso() {
     return Persona::getIngreso();
 }
-void Empleado::setCargo(string _cargo){
-    cargo=_cargo;
+
+void Empleado::setCargo(string _cargo) {
+    cargo = _cargo;
 }
 
+// Implementación de métodos de archivo
 
+void archivo::escritura() {
+    ofstream variableescribe("clientes.txt");
 
-void archivo::escritura(){
-
-// abre el archivo para escritura 
-    ofstream variableescribe ("clientes.txt");
-
-// verifica existencia de archivo
-    if (!variableescribe){
-        cout << "error al abrir el archivo"<< endl;
-
-        exit (EXIT_FAILURE);
+    if (!variableescribe) {
+        cout << "Error al abrir el archivo" << endl;
+        exit(EXIT_FAILURE);
     }
 
     int num;
-
-    cout << "ingrese el numero a multiplicar: ";
+    cout << "Ingrese el numero a multiplicar: ";
     cin >> num;
-
-
-//escribe archivo
     variableescribe << num << " ";
-        
-    variableescribe<<endl;
-    
+    variableescribe << endl;
 }
 
-void archivo::lectura(){
-    ifstream variablelectura ("clientes.txt");
-// verifica erchivo
-    if (!variablelectura.is_open()){
-        cout << "error" <<endl;
-        exit (EXIT_FAILURE);
+void archivo::lectura() {
+    ifstream variablelectura("clientes.txt");
+
+    if (!variablelectura.is_open()) {
+        cout << "Error al abrir el archivo" << endl;
+        exit(EXIT_FAILURE);
     }
 
     int valor;
+    while (variablelectura >> valor) {
+        cout << valor << " ";
+    }
+    cout << endl;
+}
 
-    int i = 0;
+// Implementación de tarjetaCredit
 
- // lee datos en archivo
-    while (variablelectura >> valor){
-        cout << valor;
+tarjetaCredit::tarjetaCredit() {
+    tarjeta = "";
+}
+
+tarjetaCredit::tarjetaCredit(string t) {
+    tarjeta = t;
+}
+
+void tarjetaCredit::tarCred() {
+    if (tarjeta == "plata" || tarjeta == "Plata") {
+        cout << "No tienes acceso a tarjetas de credito" << endl;
+    }
+    else if (tarjeta == "oro" || tarjeta == "Oro") {
+        cout << "Puedes acceder a la tarjeta de crédito Credix con límite de crédito 250000" << endl;
+    }
+    else if (tarjeta == "Platino" || tarjeta == "platino") {
+        cout << "Puedes acceder a la tarjeta de crédito Premium con límite de crédito 500000" << endl;
     }
 }
