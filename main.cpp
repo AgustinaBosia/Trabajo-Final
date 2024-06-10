@@ -33,11 +33,16 @@ void solicitarFecha(int& _dia, int& _mes, int& _año) {
     _año=año;
 }
 
-void menuCliente(Cliente array[]){
-    int dia,mes,año;
+void menuCliente(Cliente array[], int &i){
+    int dia,mes,año,nro;
     Cuenta Cu(1000, 500);
-    Cliente Cl(12345678, "Juan Perez", 2020, 1, 2, Cu);
-    array[0]=Cl;
+
+    cout<<"Ingrese el nro de Cliente: (su dni)";
+    cin>>nro;
+
+    Cliente Cl(nro, "Juan Perez", 2020, 1, 2, Cu);
+    array[i]=Cl;
+    i++;
     int caja,op, monto;
 
     cout<<"desea abrir una nueva cuenta o dar de baja una existente? (1=nueva, 2=baja)"<<endl;
@@ -68,10 +73,17 @@ void menuCliente(Cliente array[]){
 
     
 }
+
+void casetwo(Cliente array[], int i){
+
+    for (int j=0; j<=i;j++){
+        cout<<array[j]<<endl;
+    }
+}
     
-void menuEmpleado(){
+void menuEmpleado(Cliente array[], int i){
     int op;
-    Empleado(43385086, "JUan Bergia", 2024, "Gerente");
+    Empleado(43385086, "Juan Bergia", 2024, "Gerente");
     cout<<"¿que desea hacer?"<<endl;
     cout<<"1. Detalle de cliente por numero de cliente"<<endl;
     cout<<"2. Listado de todos los clientes en el banco"<<endl;
@@ -85,22 +97,22 @@ void menuEmpleado(){
     switch (op)
     {
     case 1:
-        
+        cout<<"nada"<<endl;
         break;
     case 2:
-        
+        casetwo(array,1);
         break;
     case 3:
-        
+        cout<<"nada"<<endl;
         break;
     case 4:
-        
+        cout<<"nada"<<endl;
         break;
     case 5:
-        
+        cout<<"nada"<<endl;
         break;
     case 6:
-        
+        cout<<"nada"<<endl;
         break;
 
     default:
@@ -110,6 +122,7 @@ void menuEmpleado(){
 
 void menu(){
     Cliente array[100];
+    int i=0;
     int op=5;
     while(op!=3){
         cout<<"¿Que desea hacer?"<<endl;
@@ -120,12 +133,13 @@ void menu(){
         switch (op)
         {
         case 1:
-            menuCliente(array);
+            menuCliente(array,i);
             break;
         case 2:
-            menuEmpleado();
+            menuEmpleado(array, i);
             break;
         case 3:
+            cout<<"chau"<<endl;
             break;
         default:
         cout<<"Opcion no válida, intente otra vez"<<endl;

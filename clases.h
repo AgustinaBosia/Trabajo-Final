@@ -55,7 +55,7 @@ class Cliente : public Persona{
 
     public:
     Cliente();
-    Cliente(long dni,string nombre,int tipo,int añoIng,int estado,Cuenta c);
+    Cliente(long dni,string nombre,int añoIn,int estado,int nivel,Cuenta c);
     long getDni(); 
     string getNombre();
     int getIngreso();
@@ -64,7 +64,11 @@ class Cliente : public Persona{
     float getCajaPeso();
     float getCajaDolar();
     void realizTrans(float, int, int, int mes, int ano);
+
+    friend ostream& operator<<(ostream& os, const Cliente& Cl);
 };
+
+
 
 class tarjetaCredit{
     public:

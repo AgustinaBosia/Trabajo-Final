@@ -103,6 +103,9 @@ Cliente::Cliente(){
 }
 Cliente::Cliente(long _dni, string _nombre, int _añoIngreso, int _estado, int _nivel, Cuenta _cuenta): Persona(_dni, _nombre,_añoIngreso)
 {
+    dni=_dni;
+    nombre=_nombre;
+    añoIngreso=_añoIngreso;
     estado=_estado;
     nivel=_nivel;
     cuent=_cuenta;
@@ -136,6 +139,30 @@ void Cliente::realizTrans(float _monto, int _tipo, int _moneda, int mes1,int ano
     }
     Transaccion trans(0,0, _tipo, _monto);
     //**
+}
+
+ostream& operator<<(ostream& os, Cliente& Cl) {
+    string tip;
+    if(Cl.nivel==1){
+        tip="plata";
+    }
+    else if(Cl.nivel==2){
+        tip="oro";
+    }
+    else if(Cl.nivel==2){
+        tip="platino";
+    }
+
+    string est;
+    if(Cl.estado==1){
+        est="alta";
+    }
+    else if(Cl.estado==0){
+        est="baja";
+    }
+
+    os << "( nro: " << Cl.dni << ", nombre: " << Cl.nombre << ", año de ingreso: "<<Cl.añoIngreso<<", estado: "<<est<<", nivel: "<<tip<<", cuenta pesos: "<<Cl.getCajaPeso()<<", cuenta dolares: "<<Cl.getCajaDolar();
+    return os;
 }
 
 
