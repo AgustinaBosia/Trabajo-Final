@@ -25,7 +25,6 @@ void altaCuenta(Cliente array[], int nroCliente, Cliente& cliente) {
     
 }
 
-
 //VER!!!!!!!!!!!!!!!
 void bajaCuenta(Cliente array[], int nroCliente) {
     bool encontrado = false;
@@ -40,8 +39,6 @@ void bajaCuenta(Cliente array[], int nroCliente) {
     if (!encontrado) {
         cout << "No hay un cliente del banco con ese número." << endl;
     }
-}
-
 void solicitarFecha(int& _mes, int& _ano) {
     int mes, ano;
     bool fechaValida = false;
