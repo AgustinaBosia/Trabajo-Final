@@ -190,21 +190,43 @@ void Empleado::setCargo(string _cargo) {
 
 // Implementación de métodos de archivo
 
-void archivo::escritura() {
-    ofstream variableescribe("clientes.txt");
+void archivo::escrituraClientes(Cliente clientes[], int numClientes) {
+        ofstream variableescribe("clientes.txt");
 
-    if (!variableescribe) {
-        cout << "Error al abrir el archivo" << endl;
-        exit(EXIT_FAILURE);
+        if (!variableescribe) {
+            cout << "Error al abrir el archivo" << endl;
+            exit(EXIT_FAILURE);
+        }
+
+        for (int i = 0; i < numClientes; ++i) {
+            variableescribe << clientes[i].getDni() << " "
+                            << clientes[i].getNombre() << " "
+                            << clientes[i].getIngreso() << " "
+                            << clientes[i].getEstado() << " "
+                            << clientes[i].getNivel() << " "
+                            << clientes[i].getCajaPeso() << " "
+                            << clientes[i].getCajaDolar() << endl;
+        }
     }
 
-    int num;
-    cout << "Ingrese el numero a multiplicar: ";
-    cin >> num;
-    variableescribe << num << " ";
-    variableescribe << endl;
-}
+void archivo::escrituraTransacciones(Transaccion transacciones[], int numTransacciones, const string& archivo) {
+        ofstream variableescribe(archivo);
 
+        if (!variableescribe) {
+            cout << "Error al abrir el archivo" << endl;
+            exit(EXIT_FAILURE);
+        }
+
+        for (int i = 0; i < numTransacciones; ++i) {
+            variableescribe << transacciones[i].getMes() << " "
+                            << transacciones[i].getAño() << " "
+                            << transacciones[i].getTipo() << " "
+                            << transacciones[i].getMonto() << endl;
+        }
+    }
+
+
+//no se necesita esto i think
 void archivo::lectura() {
     ifstream variablelectura("clientes.txt");
 
