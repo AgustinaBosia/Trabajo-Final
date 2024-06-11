@@ -1,6 +1,9 @@
+
 #include <iostream>
 #include <fstream>
 using namespace std;
+
+class Cliente;
 
 class Transaccion {
     private:
@@ -47,6 +50,15 @@ class Persona {
     virtual int getIngreso();
 };
 
+class archivo {
+    public:
+    archivo();
+    static void escrituraClientes(Cliente [], int);
+    static void escrituraTransacciones(Transaccion[], int);
+    static int lecturaClientes(Cliente[]);
+    static int lecturaTransacciones(Transaccion[]);
+};
+
 class tarjetaCredit {
     public:
     string tarjeta;
@@ -57,17 +69,17 @@ class tarjetaCredit {
     void tarCred();
 };
 
-class Cliente : public Persona, public archivo{
+class Cliente : public Persona, public archivo {
     public:
     int estado, nivel;
     Cuenta cuent;
     tarjetaCredit tarjeta;
-    Transaccion transacciones [100];
+    Transaccion transacciones[100];
     int num_transacciones;
 
     public:
     Cliente();
-    Cliente(long dni, string nombre,int nivel, Cuenta cuent);
+    Cliente(long dni, string nombre, int nivel, Cuenta cuent);
     Cliente(long dni, string nombre, int añoIngreso, int estado, int nivel, Cuenta cuent);
     long getDni();
     string getNombre();
@@ -78,11 +90,11 @@ class Cliente : public Persona, public archivo{
     float getCajaDolar();
     void bajaCuenta(Cliente[], int);
     void realizTrans(float monto, int tipo, int moneda, int mes1, int ano1);
-    void mostrar_transacciones (int mes =0, int ano=0);
+    void mostrar_transacciones(int mes = 0, int ano = 0);
     friend ostream& operator<<(ostream& os, const Cliente& Cl);
 };
 
-class Empleado : public Persona{
+class Empleado : public Persona {
     private:
     string cargo;
     public:
@@ -91,15 +103,6 @@ class Empleado : public Persona{
     string getCargo();
     void setCargo(string cargo);
     int getIngreso();
-};
-
-class archivo {
-    public:
-    archivo();
-    static void escrituraClientes(Cliente [], int);
-    static void escrituraTransacciones(Transaccion[], int);
-    static int lecturaClientes(Cliente[]);
-    static int lecturaTransacciones(Transaccion[]);
 };
 
 class banco {

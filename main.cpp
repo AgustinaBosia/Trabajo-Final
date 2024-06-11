@@ -162,39 +162,8 @@ void casethree(Cliente array[], int i){
     cout <<"ingrese el numero de cliente a buscar: "<<endl;
     cin>> a;
 }
-/* Agus fijate si te gusta 
-void casethree(Cliente array[], int i) {
-    long nroCliente;
-    cout << "Ingrese el número de cliente: ";
-    cin >> nroCliente;
 
-    bool clienteEncontrado = false;
-    for (int j = 0; j < i; j++) {
-        if (array[j].getDni() == nroCliente && array[j].getEstado() != 0) {
-            clienteEncontrado = true;
-            cout << "Transacciones del cliente: " << array[j].getNombre() << endl;
-            // Obtener las transacciones del cliente
-            Transaccion* transaccionesCliente = array[j].cuent.t;
-            int numTransacciones = sizeof(transaccionesCliente) / sizeof(transaccionesCliente[0]);
 
-            // Mostrar las transacciones del cliente
-            for (int k = 0; k < numTransacciones; k++) {
-                cout << "Transacción " << k + 1 << ":" << endl;
-                cout << "Tipo: " << (transaccionesCliente[k].getTipo() == 1 ? "Depósito" : "Extracción") << endl;
-                cout << "Monto: " << transaccionesCliente[k].getMonto() << endl;
-                cout << "Mes: " << transaccionesCliente[k].getMes() << endl;
-                cout << "Año: " << transaccionesCliente[k].getAño() << endl;
-                cout << endl;
-            }
-            break;
-        }
-    }
-
-    if (!clienteEncontrado) {
-        cout << "Cliente no encontrado o dado de baja." << endl;
-    }
-}
-*/
 void casefour (Cliente array [], int i){
     int mes,ano; 
     cout << "Ingrese el mes (1-12): ";
@@ -257,8 +226,7 @@ void menuEmpleado(Cliente array[], int i) {
 }
 
 void menu(Cliente array[100], Transaccion vector[], int &i) {
-    
-    int i = 0;
+    int local_i = 0;
     int op = 5;
     while (op != 3) {
         cout << "¿Que desea hacer?" << endl;
@@ -283,6 +251,7 @@ void menu(Cliente array[100], Transaccion vector[], int &i) {
     }
 }
 
+
 int main() {
     int i=0;
     int p=0;
@@ -290,6 +259,7 @@ int main() {
     Cliente array[100];
     Transaccion vector[100];
     menu(array,vector,i);
-    B.archivo1.escrituraClientes(array,i);
-    B.archivo1.escrituraTransacciones(vector,p);
+    B.archivo1.escrituraClientes(array, i);
+    B.archivo1.escrituraTransacciones(vector, p);
+
 }

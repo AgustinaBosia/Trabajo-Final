@@ -1,5 +1,6 @@
 #include "clases.h"
 
+
 // Implementación de los constructores y métodos de Transaccion
 
 Transaccion::Transaccion(int mes1, int ano1, int _tipo, float _monto)
@@ -175,6 +176,27 @@ float Cliente::getCajaDolar()
     return cuent.getCajaDolar();
 }
 
+void Cliente::bajaCuenta(Cliente clientes[], int nroCliente) {
+
+// ACA
+
+    int a=0;
+    
+    for(int j=0; j<100; j++){
+        if (nroCliente==clientes[j].dni){
+            clientes[j].estado=0;
+            a=1;
+            cout<<clientes[j];
+        }
+
+        if(a!=0){
+            cout<<"no hay tal cliente"<<endl;
+        }
+        
+    }
+
+}
+
 void Cliente::realizTrans(float _monto, int _tipo, int _moneda, int mes1, int ano1)
 {
     if (_tipo == 1)
@@ -254,6 +276,9 @@ void Empleado::setCargo(string _cargo)
 
 // Implementación de métodos de archivo
 
+archivo::archivo() {}
+
+
 void archivo::escrituraClientes(Cliente clientes[], int numClientes)
 {
     ofstream variableescribe("clientes.txt");
@@ -319,7 +344,7 @@ int archivo::lecturaClientes(Cliente clientes[])
 }
 int archivo::lecturaTransacciones(Transaccion transacciones[])
 {
-    ifstream variablelectura("transaccionesGlobales.txt");
+    ifstream variablelectura("transaccioness.txt");
 
     if (!variablelectura.is_open())
     {
@@ -369,55 +394,8 @@ void tarjetaCredit::tarCred()
 
 // BANCO
 
-
-
+banco::banco(){
     
-void Cliente::bajaCuenta(Cliente clientes[], int nroCliente) {
-
-    /*
-    ifstream archivoLectura("clientes.txt");
-    ofstream archivoTemporal("temp.txt");
-    if (!archivoLectura.is_open()) {
-        cout << "Error al abrir el archivo" << endl;
-        return;
-    }
-    bool clienteEncontrado = false;
-    long dni;
-    string nombre;
-    int ingreso, estado, nivel;
-    float cajaPeso, cajaDolar;
-    while (archivoLectura >> dni >> nombre >> ingreso >> estado >> nivel >> cajaPeso >> cajaDolar) {
-        if (dni == nroCliente) {
-            clienteEncontrado = true;
-            archivoTemporal << dni << " " << nombre << " " << ingreso << " " << 0 << " " << nivel << " " << cajaPeso << " " << cajaDolar << endl;
-            cout << "Cliente dado de baja exitosamente." << endl;
-        } else {
-            archivoTemporal << dni << " " << nombre << " " << ingreso << " " << estado << " " << nivel << " " << cajaPeso << " " << cajaDolar << endl;
-        }
-    }
-    archivoLectura.close();
-    if (!clienteEncontrado) {
-        cout << "No hay un cliente del banco con ese número." << endl;
-    }
-    remove("clientes.txt");
-    rename("temp.txt", "clientes.txt");
-    */
-    
-    
-
-    int a=0;
-    
-    for(int j=0; j<100; j++){
-        if (nroCliente==clientes[j].dni){
-            clientes[j].estado=0;
-            a=1;
-            cout<<clientes[j];
-        }
-
-        if(a!=0){
-            cout<<"no hay tal cliente"<<endl;
-        }
-        
-    }
-
 }
+
+    
