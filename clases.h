@@ -57,7 +57,7 @@ class tarjetaCredit {
     void tarCred();
 };
 
-class Cliente : public Persona{
+class Cliente : public Persona, archivo{
     public:
     int estado, nivel;
     Cuenta cuent;
@@ -91,6 +91,8 @@ class Empleado : public Persona{
 class archivo {
     private:
     protected:
+    static void escrituraClientes(Cliente[], int);
+    static void escrituraTransacciones(Transaccion[], int, const string&);
     void escritura();
     void lectura();
 };
