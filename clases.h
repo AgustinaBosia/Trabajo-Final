@@ -57,14 +57,17 @@ class tarjetaCredit {
     void tarCred();
 };
 
-class Cliente : public Persona, archivo{
+class Cliente : public Persona, public archivo{
     public:
     int estado, nivel;
     Cuenta cuent;
     tarjetaCredit tarjeta;
+    Transaccion transacciones [100];
+    int num_transacciones;
 
     public:
     Cliente();
+    Cliente(long dni, string nombre,int nivel, Cuenta cuent);
     Cliente(long dni, string nombre, int añoIngreso, int estado, int nivel, Cuenta cuent);
     long getDni();
     string getNombre();
@@ -73,8 +76,9 @@ class Cliente : public Persona, archivo{
     int getNivel();
     float getCajaPeso();
     float getCajaDolar();
+    void bajaCuenta(Cliente[], int);
     void realizTrans(float monto, int tipo, int moneda, int mes1, int ano1);
-
+    void mostrar_transacciones (int mes =0, int ano=0);
     friend ostream& operator<<(ostream& os, const Cliente& Cl);
 };
 
@@ -82,6 +86,7 @@ class Empleado : public Persona{
     private:
     string cargo;
     public:
+    Empleado();
     Empleado(long dni, string nombre, int añoIngreso, string cargo);
     string getCargo();
     void setCargo(string cargo);
@@ -89,16 +94,21 @@ class Empleado : public Persona{
 };
 
 class archivo {
-    private:
-    protected:
-    static void escrituraClientes(Cliente[], int);
-    static void escrituraTransacciones(Transaccion[], int, const string&);
-    void escritura();
-    void lectura();
+    public:
+    archivo();
+    static void escrituraClientes(Cliente [], int);
+    static void escrituraTransacciones(Transaccion[], int);
+    static int lecturaClientes(Cliente[]);
+    static int lecturaTransacciones(Transaccion[]);
 };
 
 class banco {
+    private:
+    Cliente clientes[100];
+    Transaccion transacciones[1000];
+    int nroTrans, nroClientes;
     public:
+    banco();
     Empleado empleado1;
     Cliente cliente1;
     archivo archivo1;
