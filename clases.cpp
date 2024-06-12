@@ -258,6 +258,22 @@ ostream &operator<<(ostream &os, const Cliente &Cl)
     return os;
 }
 
+void Cliente::tarjetaCredit(string t)
+{
+    if (t=="plata"){
+        cout<<"No tiene acceso a tarjeta de credito"<<endl;
+        tarjeta.tarjeta="plata";
+    }
+    else if(t=="oro"){
+        cout<<"Tiene un límite de crédito de 250,000"<<endl;
+        tarjeta.tarjeta="oro";
+    }
+    else if(t=="platino"){
+        cout<<"Tiene un límite de crédito de 500,000"<<endl;
+        tarjeta.tarjeta="platino";
+    }
+}
+
 // -------------------------------------------------------------------------------------------------EMPLEADO
 
 Empleado::Empleado(){
@@ -339,21 +355,7 @@ tarjetaCredit::tarjetaCredit()
     tarjeta = "";
 }
 
-void Cliente::tarjetaCredit(string t)
-{
-    if (t=="plata"){
-        cout<<"no tiene acceso a tarjeta de credito"<<endl;
-        tarjeta.tarjeta="plata";
-    }
-    else if(t=="oro"){
-        cout<<"tiene un límite de crédito de 250,000"<<endl;
-        tarjeta.tarjeta="oro";
-    }
-    else if(t=="platino"){
-        cout<<"tiene un límite de crédito de 500,000"<<endl;
-        tarjeta.tarjeta="platino";
-    }
-}
+
 
 
 
