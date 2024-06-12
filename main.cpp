@@ -2,6 +2,25 @@
 #include "clases.h"
 using namespace std;
 
+void verifInt(int& dato){
+    while (true){
+        try{
+            cin>>dato;
+            if (cin.fail()){
+                throw invalid_argument ("Se esperaba un dato del tipo entero.");
+            } else {
+                break;
+            }
+        }
+    catch (const invalid_argument& e) {
+            cin.clear(); // Limpia el estado de error de cin
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignora los caracteres restantes en el buffer
+            cout << "Error: " << e.what() << endl;
+            cout << "Por favor, ingrese un número válido." << endl;
+        }
+    }
+}
+
 //MENU CLIENTE (ALTAS BAJAS Y OP)
 
 void activarCuenta(Cliente array[],long nroCliente, int j){
@@ -24,7 +43,7 @@ void altaCuenta(Cliente array[], long nroCliente, int& i) {
             cout << "Ese cliente ya posee una cuenta de banco activa" << endl;
         } else if (array[posCliente].getEstado() == 0) {
             cout << "Ese cliente ya posee una cuenta de banco, pero no se encuentra activa, ¿desea activarla? (0=no; 1=si)" << endl;
-            cin >> op;
+            verifInt(op);
             if (op == 1) {
                 activarCuenta(array, nroCliente, posCliente);
                 cout << "Cuenta reactivada exitosamente." << endl;
@@ -168,13 +187,28 @@ void operacion(Cliente array[], Transaccion vector[], int nro, int i, int& p, in
 }
 
 void menuCliente(Cliente array[], Transaccion vector[], int &i, int& p, int &a) {
-    int mes, ano;
     long nro;
-    int caja, op, monto;
-    Cuenta Cu(1000, 500);
+    int op;
 
     cout << "Ingrese el nro de Cliente (su DNI): "<<endl;
-    cin >> nro;
+
+    while (true) {
+        try {
+            cin >> nro;
+            if (cin.fail()) {
+                throw invalid_argument("Se esperaba un dato del tipo long.");
+            } else {
+                break;
+            }
+        }
+        catch (const invalid_argument& e) {
+            cin.clear(); // Limpia el estado de error de cin
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignora los caracteres restantes en el buffer
+            cout << "Error: " << e.what() << endl;
+            cout << "Por favor, ingrese un número válido." << endl;
+        }
+    }
+    
 
     cout << "Desea: " << endl;
     cout << "1=Dar de alta una cuenta" << endl;
