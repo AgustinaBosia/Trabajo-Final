@@ -11,16 +11,18 @@ class Transaccion {
     float monto;
     int mes;
     int ano, caja;
+    string titular;
 
     public:
     Transaccion();
-    Transaccion(int mes, int ano, int tipo, float monto, int caja);
+    Transaccion(int mes, int ano, int tipo, float monto, int caja,string titular);
     friend ostream& operator<<(ostream& os, const Transaccion& Tr);
     int getMes();
     int getAño();
     int getTipo();
     float getMonto();
     int getCaja();
+    string getTitular();
 };
 
 class FondosInsuficientes {
@@ -41,13 +43,8 @@ class Cuenta {
     void extraer(float monto, int moneda);
     float getCajaPeso();
     float getCajaDolar();
-    /*class fondosinsuf : public exception {
-    virtual const char* what ()const throw (){
-    return "Fondos insuficientes en la caja seleccionada.";
-    }
-    }
-    */
-};
+}
+;
 
 class Persona {
     public:
@@ -79,7 +76,6 @@ class tarjetaCredit {
     public:
     tarjetaCredit();
     tarjetaCredit(string t);
-    void tarCred();
 };
 
 class Cliente : public Persona, public archivo {
@@ -102,7 +98,7 @@ class Cliente : public Persona, public archivo {
     float getCajaPeso();
     float getCajaDolar();
     void bajaCuenta(Cliente[], int);
-    void realizTrans(float monto, int tipo, int moneda, int mes1, int ano1, int _caja);
+    void realizTrans(float monto, int tipo, int moneda, int mes1, int ano1, int _caja, string titular_);
     void mostrar_transacciones(int mes = 0, int ano = 0);
     friend ostream& operator<<(ostream& os, const Cliente& Cl);
 };

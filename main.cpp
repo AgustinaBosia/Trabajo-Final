@@ -1,6 +1,5 @@
 #include <iostream>
 #include "clases.h"
-#include <string>
 using namespace std;
 
 void activarCuenta(Cliente array[],long nroCliente, int j){
@@ -47,6 +46,15 @@ void altaCuenta(Cliente array[], long nroCliente, int& i) {
         cout << "3. Platino (Límite de crédito de 500,000)" << endl;
         cin >> nivel;
 
+        if (nivel==1){
+            
+        }
+        else if(nivel==2){
+
+        }
+        else if(nivel==2){
+            
+        }
         if (nivel < 1 || nivel > 3) {
             cout << "Opción no válida" << endl;
         } else {
@@ -99,9 +107,11 @@ void solicitarFecha(int& _mes, int& _ano) {
 
 void operacion(Cliente array[], Transaccion vector[], int nro, int i, int& p, int &a) {
     bool clienteEncontrado = false;
+    string titular;
     try {
         for (int j = 0; j < i; j++) {
             if (array[j].getDni() == nro) {
+                titular = array[j].getNombre(); // Asigna el nombre del cliente a titular
                 clienteEncontrado = true;
 
                 if (array[j].estado == 0) {
@@ -111,13 +121,12 @@ void operacion(Cliente array[], Transaccion vector[], int nro, int i, int& p, in
                 int mes, ano, caja, op;
                 float monto;
                 solicitarFecha(mes, ano);
-                cout << "¿En que caja desea operar? (1=peso, 2=dolar)" << endl;
+                cout << "¿En qué caja desea operar? (1=peso, 2=dólar)" << endl;
                 cin >> caja;
-                cout << "¿Que operacion desea realizar? (1=deposito, 2=extraccion)" << endl;
+                cout << "¿Qué operación desea realizar? (1=depósito, 2=extracción)" << endl;
                 cin >> op;
-                cout << "Ingrese el monto" << endl;
+                cout << "Ingrese el monto: " << endl;
                 cin >> monto;
-                
 
                 if (((monto > array[j].getCajaPeso()) && (op == 2) && (caja == 1)) || 
                     ((monto > array[j].getCajaDolar()) && (op == 2) && (caja == 2))) {
@@ -125,10 +134,10 @@ void operacion(Cliente array[], Transaccion vector[], int nro, int i, int& p, in
                 } else if (monto <= 0) {
                     throw "El monto a depositar debe ser mayor a 0.";
                 } else {
-                    array[j].realizTrans(monto, op, caja, mes, ano, caja);
-                    Transaccion Tr(mes, ano, op, monto, caja);
+                    array[j].realizTrans(monto, op, caja, mes, ano, caja, titular);
+                    Transaccion Tr(mes, ano, op, monto, caja, titular);
                     vector[p] = Tr;
-                    array[j].transacciones[a]=Tr;
+                    array[j].transacciones[a] = Tr;
                     p++;
                     a++;
                     cout << "Transacción realizada exitosamente." << endl;
@@ -262,9 +271,9 @@ void menuEmpleado(Cliente array[], int i, Transaccion vector[],int p, int a) {
     cout << "2. Listado de todos los clientes en el banco" << endl;
     cout << "3. Listado de transacciones por cliente" << endl;
     cout << "Informes de extracciones y depósitos según los siguiente criterios:" << endl;
-    cout << " 4. En un mes determinado" << endl;
-    cout << " 5. En un año determinado" << endl;
-    cout << " 6. Todas" << endl;
+    cout << "   4. En un mes determinado" << endl;
+    cout << "   5. En un año determinado" << endl;
+    cout << "   6. Todas" << endl;
 
     cin >> op;
     switch (op) {
@@ -333,7 +342,7 @@ void inicializarArchivoTrans(){
         cerr << "Error al abrir el archivo para escribir los encabezados." << endl;
         return;
     }
-    archivoTrans << "Mes Año Tipo Caja Monto "<< endl;
+    archivoTrans << "Mes Año Tipo Caja Monto Titular"<< endl;
     archivoTrans.close();
 }
 
@@ -344,9 +353,11 @@ int main() {
     banco B;
     Cliente array[100];
     Transaccion vector[100];
-    menu(array,vector,i,p,a);
     inicializarArchivoClientes();
-    inicializarArchivoTrans();
+    inicializarArchivoTrans(); 
+
+    menu(array,vector,i,p,a);
+    
     B.archivo1.escrituraClientes(array, i);
     B.archivo1.escrituraTransacciones(vector, p);
 }

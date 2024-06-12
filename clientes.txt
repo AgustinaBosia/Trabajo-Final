@@ -1,3 +1,1 @@
 dni nombre ingreso estado nivel saldo_pesos saldo_dolares
-123 traumadita 2024 1 1 756 2323
-456 agustinita 2024 1 2 4444 20110

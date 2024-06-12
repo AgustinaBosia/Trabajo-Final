@@ -1,15 +1,16 @@
 #include "clases.h"
+using namespace std;
 
+// -------------------------------------------------------------------------------------------------TRANSACCION
 
-// Implementación de los constructores y métodos de Transaccion
-
-Transaccion::Transaccion(int mes1, int ano1, int _tipo, float _monto, int _caja)
+Transaccion::Transaccion(int mes1, int ano1, int _tipo, float _monto, int _caja, string titular_)
 {
     mes = mes1;
     ano = ano1;
     tipo = _tipo;
     monto = _monto;
     caja=_caja;
+    titular=titular_;
 }
 
 Transaccion::Transaccion()
@@ -48,7 +49,11 @@ int Transaccion::getCaja()
     return caja;
 }
 
-// Implementación de los constructores y métodos de Cuenta
+string Transaccion::getTitular(){
+    return titular;
+}
+
+// -------------------------------------------------------------------------------------------------CUENTA 
 
 Cuenta::Cuenta()
 {
@@ -100,7 +105,12 @@ float Cuenta::getCajaDolar()
     return cajaDolar;
 }
 
-//  constructores y métodos de PERSONA
+
+
+
+
+
+//  -------------------------------------------------------------------------------------------------PERSONA
 
 Persona::Persona() {}
 
@@ -126,7 +136,7 @@ int Persona::getIngreso()
     return añoIngreso;
 }
 
-// Implementación de los constructores y métodos de Cliente
+// -------------------------------------------------------------------------------------------------CLIENTE
 
 Cliente::Cliente()
 {
@@ -187,7 +197,6 @@ float Cliente::getCajaDolar()
 
 void Cliente::bajaCuenta(Cliente clientes[], int nroCliente) {
 
-// ACA
 
     int a=0;
     
@@ -206,7 +215,7 @@ void Cliente::bajaCuenta(Cliente clientes[], int nroCliente) {
 
 }
 
-void Cliente::realizTrans(float _monto, int _tipo, int _moneda, int mes1, int ano1, int _caja)
+void Cliente::realizTrans(float _monto, int _tipo, int _moneda, int mes1, int ano1, int _caja, string _titular)
 {
     if (_tipo == 1)
     {
@@ -216,7 +225,7 @@ void Cliente::realizTrans(float _monto, int _tipo, int _moneda, int mes1, int an
     {
         cuent.extraer(_monto, _moneda);
     }
-    Transaccion trans(mes1, ano1, _tipo, _monto, _caja);
+    Transaccion trans(mes1, ano1, _tipo, _monto, _caja, "a");
 }
 
 ostream &operator<<(ostream &os, const Cliente &Cl)
@@ -249,7 +258,7 @@ ostream &operator<<(ostream &os, const Cliente &Cl)
     return os;
 }
 
-// Implementación de los constructores y métodos de Empleado
+// -------------------------------------------------------------------------------------------------EMPLEADO
 
 Empleado::Empleado(){
     dni=0;
@@ -275,7 +284,7 @@ void Empleado::setCargo(string _cargo)
     cargo = _cargo;
 }
 
-// Implementación de métodos de archivo
+// -------------------------------------------------------------------------------------------------ARCHIVO
 
 archivo::archivo() {}
 
@@ -318,7 +327,8 @@ void archivo::escrituraTransacciones(Transaccion transacciones[], int numTransac
                         << transacciones[i].getAño() << " "
                         << transacciones[i].getTipo() << " "
                         << transacciones[i].getCaja() << " "
-                        << transacciones[i].getMonto() << endl;
+                        << transacciones[i].getMonto() << " "                       
+                        << transacciones[i].getTitular() << endl;
     }
 }
 
@@ -356,17 +366,18 @@ int archivo::lecturaTransacciones(Transaccion transacciones[])
 
     int numTransacciones = 0;
     int mes, ano, tipo, caja;
+    string titular;
     float monto;
-    while (variablelectura >> mes >> ano >> tipo >> monto >> caja)
+    while (variablelectura >> mes >> ano >> tipo >> monto >> caja>> titular)
     {
-        transacciones[numTransacciones] = Transaccion(mes, ano, tipo, monto, caja);
+        transacciones[numTransacciones] = Transaccion(mes, ano, tipo, monto, caja, titular);
         ++numTransacciones;
     }
 
     return numTransacciones;
 }
 
-// Implementación de tarjetaCredit
+// -------------------------------------------------------------------------------------------------TARJETA
 
 tarjetaCredit::tarjetaCredit()
 {
@@ -378,26 +389,10 @@ tarjetaCredit::tarjetaCredit(string t)
     tarjeta = t;
 }
 
-void tarjetaCredit::tarCred()
-{
-    if (tarjeta == "plata" || tarjeta == "Plata")
-    {
-        cout << "No tienes acceso a tarjetas de credito" << endl;
-    }
-    else if (tarjeta == "oro" || tarjeta == "Oro")
-    {
-        cout << "Puedes acceder a la tarjeta de crédito Credix con límite de crédito 250000" << endl;
-    }
-    else if (tarjeta == "Platino" || tarjeta == "platino")
-    {
-        cout << "Puedes acceder a la tarjeta de crédito Premium con límite de crédito 500000" << endl;
-    }
-}
 
-// BANCO
+
+// --------------------------------------------------------------------------------------------------BANCO
 
 banco::banco(){
     
 }
-
-    

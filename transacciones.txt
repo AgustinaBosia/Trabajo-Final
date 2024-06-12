@@ -1,3 +1,1 @@
-Mes Año Tipo Caja Monto 
-12 2323 2 1 456
-3 2324 1 2 12333
+Mes Año Tipo Caja Monto Titular
