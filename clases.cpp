@@ -384,9 +384,20 @@ tarjetaCredit::tarjetaCredit()
     tarjeta = "";
 }
 
-tarjetaCredit::tarjetaCredit(string t)
+void Cliente::tarjetaCredit(string t)
 {
-    tarjeta = t;
+    if (t=="plata"){
+        cout<<"no tiene acceso a tarjeta de credito"<<endl;
+        tarjeta.tarjeta="plata";
+    }
+    else if(t=="oro"){
+        
+        tarjeta.tarjeta="oro";
+    }
+    else if(t=="platino"){
+        
+        tarjeta.tarjeta="platino";
+    }
 }
 
 

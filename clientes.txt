@@ -1,2 +1,1 @@
 dni nombre ingreso estado nivel saldo_pesos saldo_dolares
-1 k 2024 1 1 1 1

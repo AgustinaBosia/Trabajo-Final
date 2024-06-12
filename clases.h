@@ -25,12 +25,6 @@ class Transaccion {
     string getTitular();
 };
 
-class FondosInsuficientes {
-public:
-    string mensaje;
-    FondosInsuficientes(string msg) : mensaje(msg) {}
-};
-
 class Cuenta {
     public:
     float cajaPeso, cajaDolar;
@@ -75,7 +69,6 @@ class tarjetaCredit {
 
     public:
     tarjetaCredit();
-    tarjetaCredit(string t);
 };
 
 class Cliente : public Persona, public archivo {
@@ -90,6 +83,7 @@ class Cliente : public Persona, public archivo {
     Cliente();
     Cliente(long dni, string nombre, int nivel, Cuenta cuent);
     Cliente(long dni, string nombre, int añoIngreso, int estado, int nivel, Cuenta cuent);
+    void tarjetaCredit(string t);
     long getDni();
     string getNombre();
     int getIngreso();

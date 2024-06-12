@@ -47,23 +47,36 @@ void altaCuenta(Cliente array[], long nroCliente, int& i) {
         cout << "2. Oro (Límite de crédito de 250,000)" << endl;
         cout << "3. Platino (Límite de crédito de 500,000)" << endl;
         cin >> nivel;
-
-        if (nivel==1){
-            
-        }
-        else if(nivel==2){
-
-        }
-        else if(nivel==2){
-            
-        }
+        
         if (nivel < 1 || nivel > 3) {
             cout << "Opción no válida" << endl;
         } else {
             Cuenta nuevaCuenta(saldoPeso, saldoDolar);
             Cliente nuevoCliente(nroCliente, nombre, 2024, 1, nivel, nuevaCuenta);
             array[i] = nuevoCliente;
+            
+
+            nombre=array[i].getNombre();
+
+            if (array[i].getNivel()==1){
+                
+                nombre="plata";
+                array[i].tarjetaCredit(nombre);
+            }
+            else if(array[i].getNivel()==2){
+                
+                nombre="oro";
+                array[i].tarjetaCredit(nombre);
+            }
+            else if(array[i].getNivel()==3){
+                
+                nombre="platino";
+                array[i].tarjetaCredit(nombre);
+            }
+
             i++;
+
+
             cout << "Cuenta creada exitosamente." << endl;
         }
     }
