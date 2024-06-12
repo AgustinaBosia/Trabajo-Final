@@ -346,11 +346,11 @@ void Cliente::tarjetaCredit(string t)
         tarjeta.tarjeta="plata";
     }
     else if(t=="oro"){
-        
+        cout<<"tiene un límite de crédito de 250,000"<<endl;
         tarjeta.tarjeta="oro";
     }
     else if(t=="platino"){
-        
+        cout<<"tiene un límite de crédito de 500,000"<<endl;
         tarjeta.tarjeta="platino";
     }
 }
