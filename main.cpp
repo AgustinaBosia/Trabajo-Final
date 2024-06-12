@@ -247,7 +247,7 @@ void casefive (Cliente array [],int i){
 
 void casesix (Transaccion vector[],int p){
     cout << "Todas las transacciones: "<< endl;
-    for (int j=0;j<=p;j++){
+    for (int j=0;j<p;j++){
        cout<<vector[j]<<endl;
     }
 }
@@ -285,6 +285,7 @@ void menuEmpleado(Cliente array[], int i, Transaccion vector[],int p) {
             break;
         case 6:
             casesix (vector,p);
+            break;
         default:
             cout<<"Opción no válida. Saliendo al menú incial..."<<endl;
             break;
