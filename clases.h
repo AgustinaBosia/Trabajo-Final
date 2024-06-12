@@ -1,6 +1,8 @@
 
 #include <iostream>
 #include <fstream>
+#include <limits>
+#include <stdexcept>
 using namespace std;
 
 class Cliente;
