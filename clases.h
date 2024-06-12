@@ -91,7 +91,6 @@ class Cliente : public Persona, public archivo {
     float getCajaDolar();
     void bajaCuenta(Cliente[], int);
     void realizTrans(float monto, int tipo, int moneda, int mes1, int ano1, int _caja, string titular_);
-    void mostrar_transacciones(int mes = 0, int ano = 0);
     friend ostream& operator<<(ostream& os, const Cliente& Cl);
 };
 
