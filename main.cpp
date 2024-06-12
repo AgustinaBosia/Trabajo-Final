@@ -76,7 +76,6 @@ void altaCuenta(Cliente array[], long nroCliente, int& i) {
 
             i++;
 
-
             cout << "Cuenta creada exitosamente." << endl;
         }
     }

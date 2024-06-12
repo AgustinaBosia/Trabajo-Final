@@ -332,51 +332,6 @@ void archivo::escrituraTransacciones(Transaccion transacciones[], int numTransac
     }
 }
 
-int archivo::lecturaClientes(Cliente clientes[])
-{
-    ifstream variablelectura("clientes.txt");
-
-    if (!variablelectura.is_open())
-    {
-        cout << "Error al abrir el archivo" << endl;
-        exit(EXIT_FAILURE);
-    }
-
-    int nroClientes = 0;
-    long dni;
-    string nombre;
-    int ingreso, estado, nivel;
-    float cajaPeso, cajaDolar;
-    while (variablelectura >> dni >> nombre >> ingreso >> estado >> nivel >> cajaPeso >> cajaDolar)
-    {
-        clientes[nroClientes] = Cliente(dni, nombre, ingreso, estado, nivel, Cuenta(cajaPeso, cajaDolar));
-        nroClientes++;
-    }
-    return nroClientes;
-}
-int archivo::lecturaTransacciones(Transaccion transacciones[])
-{
-    ifstream variablelectura("transaccioness.txt");
-
-    if (!variablelectura.is_open())
-    {
-        cout << "Error al abrir el archivo" << endl;
-        exit(EXIT_FAILURE);
-    }
-
-    int numTransacciones = 0;
-    int mes, ano, tipo, caja;
-    string titular;
-    float monto;
-    while (variablelectura >> mes >> ano >> tipo >> monto >> caja>> titular)
-    {
-        transacciones[numTransacciones] = Transaccion(mes, ano, tipo, monto, caja, titular);
-        ++numTransacciones;
-    }
-
-    return numTransacciones;
-}
-
 // -------------------------------------------------------------------------------------------------TARJETA
 
 tarjetaCredit::tarjetaCredit()

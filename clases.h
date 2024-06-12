@@ -57,10 +57,8 @@ class Persona {
 class archivo {
     public:
     archivo();
-    static void escrituraClientes(Cliente [], int);
-    static void escrituraTransacciones(Transaccion[], int);
-    static int lecturaClientes(Cliente[]);
-    static int lecturaTransacciones(Transaccion[]);
+    void escrituraClientes(Cliente [], int);
+    void escrituraTransacciones(Transaccion[], int);
 };
 
 class tarjetaCredit {
