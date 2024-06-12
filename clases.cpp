@@ -248,15 +248,7 @@ ostream &operator<<(ostream &os, const Cliente &Cl)
     os << "( nro: " << Cl.dni << ", nombre: " << Cl.nombre << ", año de ingreso: " << Cl.añoIngreso << ", estado: " << est << ", nivel: " << tip << ", cuenta pesos: " << Cl.cuent.cajaPeso<< ", cuenta dolares: " << Cl.cuent.cajaDolar << " )";
     return os;
 }
-void Cliente :: mostrar_transacciones (int mes,int ano){
-    cout << "Transacciones del cliente: "<< endl;
-    for (int i=0; i <num_transacciones; ++i){
-        if ((mes ==0 || transacciones[i].getMes ()==mes)&& (ano ==0|| transacciones [i].getAño ()==ano)){
-            cout <<"Fecha:"<<transacciones[i].getMes ()<< "/"<< transacciones [i].getAño ()<< ", Tipo:"<< transacciones [i].getTipo ()<< ", Monto:" <<transacciones [i].getMonto ()<< ", Caja: " <<transacciones [i].getCaja () << endl;
-            
-        }
-    }
-}
+
 // Implementación de los constructores y métodos de Empleado
 
 Empleado::Empleado(){

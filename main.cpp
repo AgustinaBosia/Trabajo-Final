@@ -58,7 +58,7 @@ void altaCuenta(Cliente array[], long nroCliente, int& i) {
         }
     }
 }
-    
+
 void bajaCuenta(Cliente array[], long nroCliente) {
     bool encontrado = false;
     for (int j = 0; j < 100; j++) {
@@ -97,36 +97,54 @@ void solicitarFecha(int& _mes, int& _ano) {
     }
 }
 
+void operacion(Cliente array[], Transaccion vector[], int nro, int i, int& p, int &a) {
+    bool clienteEncontrado = false;
+    try {
+        for (int j = 0; j < i; j++) {
+            if (array[j].getDni() == nro) {
+                clienteEncontrado = true;
 
-//AGREGAR EXCEPCION (si el monto de la extraccion sobrepasa el saldo disponible, no se hace)
-void operacion(Cliente array[], Transaccion vector[], int nro, int i, int& p){
-    
-    for (int j=0; j < (i); j++){
-                if ((array[j].getDni() == nro) && (array[j].estado!= 0)){
-                    int mes,ano, caja, op;
-                    float monto;
-                    
-                    cout << "¿En que caja desea operar? (1=peso, 2=dolar)" << endl;
-                    cin >> caja;
-                    cout << "¿Que operacion desea realizar?(1=deposito, 2=extraccion)" << endl;
-                    cin >> op;
-                    cout << "Ingrese el monto" << endl;
-                    cin >> monto;
-                    solicitarFecha(mes, ano);
+                if (array[j].estado == 0) {
+                    throw "El cliente está dado de baja.";
+                }
 
+                int mes, ano, caja, op;
+                float monto;
+                solicitarFecha(mes, ano);
+                cout << "¿En que caja desea operar? (1=peso, 2=dolar)" << endl;
+                cin >> caja;
+                cout << "¿Que operacion desea realizar? (1=deposito, 2=extraccion)" << endl;
+                cin >> op;
+                cout << "Ingrese el monto" << endl;
+                cin >> monto;
+                
+
+                if (((monto > array[j].getCajaPeso()) && (op == 2) && (caja == 1)) || 
+                    ((monto > array[j].getCajaDolar()) && (op == 2) && (caja == 2))) {
+                    throw "El monto de la extracción no puede superar la cantidad de dinero disponible en caja.";
+                } else if (monto <= 0) {
+                    throw "El monto a depositar debe ser mayor a 0.";
+                } else {
                     array[j].realizTrans(monto, op, caja, mes, ano, caja);
                     Transaccion Tr(mes, ano, op, monto, caja);
-                    array[j].cuent.t.getMonto();
-                    vector[p] = Transaccion(mes, ano, op, monto,caja);
+                    vector[p] = Tr;
+                    array[j].transacciones[a]=Tr;
                     p++;
+                    a++;
+                    cout << "Transacción realizada exitosamente." << endl;
                 }
-                if ((array[j].getDni() == nro) && (array[j].estado== 0)){
-                cout<<"EL cliente está dado de baja."<<endl;
+                return;
             }
         }
+        if (!clienteEncontrado) {
+            throw "El DNI ingresado no corresponde a ningún cliente del banco.";
+        }
+    } catch (const char* msg) {
+        cout << "Error: " << msg << endl;
+    }
 }
 
-void menuCliente(Cliente array[], Transaccion vector[], int &i, int& p) {
+void menuCliente(Cliente array[], Transaccion vector[], int &i, int& p, int &a) {
     int mes, ano;
     long nro;
     int caja, op, monto;
@@ -152,7 +170,7 @@ void menuCliente(Cliente array[], Transaccion vector[], int &i, int& p) {
             break;
         }
         case 3: {
-            operacion(array,vector, nro, i, p);
+            operacion(array,vector, nro, i, p, a);
             break;
         }
         default:{
@@ -187,61 +205,45 @@ void casetwo(Cliente array[], int i) {
         cout<<j<<") "<<"cliente nro: "<<array[j].dni<<", nombre: "<<array[j].nombre<<endl;
     }
 }
-/*
-void casethree(Cliente array[], int i) {
-    long nroCliente;
-    cout << "Ingrese el número de cliente: ";
-    cin >> nroCliente;
 
 
-    bool clienteEncontrado = false;
-    for (int j = 0; j < i; j++) {
-        if (array[j].getDni() == nroCliente && array[j].getEstado() != 0) {
-            clienteEncontrado = true;
-            cout << "Transacciones del cliente: " << array[j].getNombre() << endl;
-            // Obtener las transacciones del cliente
-            Transaccion* transaccionesCliente = array[j].cuent.t;
-            int numTransacciones = sizeof(transaccionesCliente) / sizeof(transaccionesCliente[0]);
 
-
-            // Mostrar las transacciones del cliente
-            for (int k = 0; k < numTransacciones; k++) {
-                cout << "Transacción " << k + 1 << ":" << endl;
-                cout << "Tipo: " << (transaccionesCliente[k].getTipo() == 1 ? "Depósito" : "Extracción") << endl;
-                cout << "Monto: " << transaccionesCliente[k].getMonto() << endl;
-                cout << "Mes: " << transaccionesCliente[k].getMes() << endl;
-                cout << "Año: " << transaccionesCliente[k].getAño() << endl;
-                cout << endl;
+void casethree (Transaccion vector [], int p, Cliente array[], int a){
+    long dni; 
+    bool encontrado= false;
+    cout << "Ingrese el número de cliente (DNI) para ver sus transacciones: "<<endl;
+    cin >> dni;
+    cout << "Transacciones del cliente con DNI "<<dni<< ":"<<endl;
+    for (int j=0; j<p;j++){
+        if (array [j].getDni()==dni){
+            encontrado=true;
+            for(int i=0; i<a-1; i++){
+                cout << "Mes: "<<array[j].transacciones[i]<<endl;
             }
-            break;
+            
         }
     }
-
-
-    if (!clienteEncontrado) {
-        cout << "Cliente no encontrado o dado de baja." << endl;
-    }
 }
-
-*/
-void casefour (Cliente array [], int i){
+void casefour (Transaccion vector[], int p){
     int mes,ano; 
     cout << "Ingrese el mes (1-12): ";
     cin >> mes;
-    cout << "Ingrese el año: ";
-    cin >> ano;
-    cout << "Transacciones en el mes "<<mes<< "del año" << ano<< ":"<<endl;
-    for (int j=0;j<=i;j++){
-        array [j].mostrar_transacciones (mes,ano);
+    cout << "Transacciones en el mes "<<mes<< ":"<<endl;
+    for (int j=0;j<p;j++){
+        if (vector[j].getMes()==mes){
+            cout<<vector[j]<<endl;
+        }
     }
 }
-void casefive (Cliente array [],int i){
+void casefive (Transaccion vector [],int p){
     int ano;
     cout << "Ingrese el año: ";
     cin >> ano;
     cout << "Transacciones en el año"<< ano<< ":"<<endl;
-    for (int j=0; j <=i;j++){
-        array[j].mostrar_transacciones (0,ano);
+    for (int j=0;j<p;j++){
+        if (vector[j].getAño()==ano){
+            cout<<vector[j]<<endl;
+        }
     }
 }
 
@@ -252,7 +254,7 @@ void casesix (Transaccion vector[],int p){
     }
 }
 
-void menuEmpleado(Cliente array[], int i, Transaccion vector[],int p) {
+void menuEmpleado(Cliente array[], int i, Transaccion vector[],int p, int a) {
     int op;
     Empleado(43385086, "Juan Bergia", 2024, "Gerente");
     cout << "¿que desea hacer?" << endl;
@@ -273,15 +275,15 @@ void menuEmpleado(Cliente array[], int i, Transaccion vector[],int p) {
             casetwo(array, 1);
             break;
         case 3:
-        /*
-            casethree (array, i);
-            */
+        
+            casethree (vector, p, array,a);
+            
            break;
         case 4:
-            casefour (array,i);
+            casefour (vector,p);
             break;
         case 5:
-            casefive (array,i);
+            casefive (vector,p);
             break;
         case 6:
             casesix (vector,p);
@@ -292,7 +294,7 @@ void menuEmpleado(Cliente array[], int i, Transaccion vector[],int p) {
     }
 }
 
-void menu(Cliente array[100], Transaccion vector[], int &i, int& p) {
+void menu(Cliente array[100], Transaccion vector[], int &i, int& p, int&a) {
     int local_i = 0;
     int op = 5;
     while (op != 3) {
@@ -303,16 +305,13 @@ void menu(Cliente array[100], Transaccion vector[], int &i, int& p) {
         cin >> op;
         switch (op) {
             case 1:
-                menuCliente(array,vector,i, p);
+                menuCliente(array,vector,i, p,a);
                 break;
             case 2:
-                menuEmpleado(array, i, vector, p);
-                break;
-            case 3:
-                cout << "Saliendo..." << endl;
+                menuEmpleado(array, i, vector, p,a);
                 break;
             default:
-                cout << "Opcion no válida, intente otra vez" << endl;
+                cout << "Saliendo..." << endl;
                 break;
         }
     }
@@ -341,10 +340,11 @@ void inicializarArchivoTrans(){
 int main() {
     int i=0;
     int p=0;
+    int a=0;
     banco B;
     Cliente array[100];
     Transaccion vector[100];
-    menu(array,vector,i,p);
+    menu(array,vector,i,p,a);
     inicializarArchivoClientes();
     inicializarArchivoTrans();
     B.archivo1.escrituraClientes(array, i);

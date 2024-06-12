@@ -23,6 +23,12 @@ class Transaccion {
     int getCaja();
 };
 
+class FondosInsuficientes {
+public:
+    string mensaje;
+    FondosInsuficientes(string msg) : mensaje(msg) {}
+};
+
 class Cuenta {
     public:
     float cajaPeso, cajaDolar;
