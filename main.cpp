@@ -2,6 +2,8 @@
 #include "clases.h"
 using namespace std;
 
+//MENU CLIENTE (ALTAS BAJAS Y OP)
+
 void activarCuenta(Cliente array[],long nroCliente, int j){
     array[j].estado=1;
 }
@@ -111,7 +113,7 @@ void operacion(Cliente array[], Transaccion vector[], int nro, int i, int& p, in
     try {
         for (int j = 0; j < i; j++) {
             if (array[j].getDni() == nro) {
-                titular = array[j].getNombre(); // Asigna el nombre del cliente a titular
+                titular = array[j].getNombre();
                 clienteEncontrado = true;
 
                 if (array[j].estado == 0) {
@@ -158,17 +160,18 @@ void menuCliente(Cliente array[], Transaccion vector[], int &i, int& p, int &a) 
     long nro;
     int caja, op, monto;
     Cuenta Cu(1000, 500);
-    
+
+    cout << "Ingrese el nro de Cliente (su DNI): "<<endl;
+    cin >> nro;
+
     cout << "Desea: " << endl;
     cout << "1=Dar de alta una cuenta" << endl;
     cout << "2=Dar de baja una cuenta" << endl;
     cout << "3=Realizar una operación en una cuenta existente" << endl;
     cout << "4=Salir" << endl;
     cin >> op;
-
-    cout << "Ingrese el nro de Cliente (su DNI): "<<endl;
-    cin >> nro;
-     
+    
+    try {
     switch (op) {
         case 1:{
             altaCuenta(array, nro, i);
@@ -182,46 +185,55 @@ void menuCliente(Cliente array[], Transaccion vector[], int &i, int& p, int &a) 
             operacion(array,vector, nro, i, p, a);
             break;
         }
-        default:{
-            cout<<"Saliendo al menú principal..."<<endl;
+        case 4:
+            cout<<"Saliendo al menú principapl..."<<endl;
+            break;
+        default:
+            throw "Opción no válida.";
         break;
         }
     }
+    catch (const char* msg) {
+        cout << "Error: " << msg << endl;
+    }
 }
 
-//Casos del menu empleado
+//CMENU EMPLEADO (CASOS)
 void caseone(Cliente array[], int i){
     int a,b=-1;
-    cout <<"ingrese el numero de cliente a buscar: "<<endl;
+    cout <<"Ingrese el nÚmero de cliente a buscar: "<<endl;
     cin>> a;
-
+    try {
     for (int j = 0; j <= i; j++) {
         if (array[j].dni == a){
             b=j;
         }
     }
     if(b!=-1){
-        cout<<"aqui los detalles del cliente buscado:"<<endl;
+        cout<<"Aquí los detalles del cliente buscado:"<<endl;
         cout << array[b] << endl;
     }
     else{
-        cout<<"no existe cliente con ese numero"<<endl;
+        throw "No existe cliente con ese número.";
+    }
+}
+    catch (const char* msg) {
+        cout << "Error: " << msg << endl;
     }
 }
 
 void casetwo(Cliente array[], int i) {
-    for (int j = 0; j <= i; j++) {
-        cout<<j<<") "<<"cliente nro: "<<array[j].dni<<", nombre: "<<array[j].nombre<<endl;
+    for (int j = 0; j < i; j++) {
+        cout<<j+1<<") "<<"cliente nro: "<<array[j].dni<<", nombre: "<<array[j].nombre<<endl;
     }
 }
-
-
 
 void casethree (Transaccion vector [], int p, Cliente array[], int a){
     long dni; 
     bool encontrado= false;
     cout << "Ingrese el número de cliente (DNI) para ver sus transacciones: "<<endl;
     cin >> dni;
+    try {
     cout << "Transacciones del cliente con DNI "<<dni<< ":"<<endl;
     for (int j=0; j<p;j++){
         if (array [j].getDni()==dni){
@@ -232,27 +244,54 @@ void casethree (Transaccion vector [], int p, Cliente array[], int a){
             
         }
     }
-}
-void casefour (Transaccion vector[], int p){
-    int mes,ano; 
-    cout << "Ingrese el mes (1-12): ";
-    cin >> mes;
-    cout << "Transacciones en el mes "<<mes<< ":"<<endl;
-    for (int j=0;j<p;j++){
-        if (vector[j].getMes()==mes){
-            cout<<vector[j]<<endl;
-        }
+    if (!encontrado){
+        throw "El número ingresado no pertenece a ningun cliente del banco.";
+    }
+    }
+    catch (const char* msg) {
+        cout << "Error: " << msg << endl;
     }
 }
+
+void casefour (Transaccion vector[], int p){
+    int mes,ano; 
+    try {
+    cout << "Ingrese el mes (1-12): ";
+    cin >> mes;
+        if ((mes<1)||mes>12){
+            throw "El mes no puede ser mayor a 12 ni menor a 1.";
+        } else {
+            cout << "Transacciones en el mes "<<mes<< ":"<<endl;
+            for (int j=0;j<p;j++){
+                if (vector[j].getMes()==mes){
+                    cout<<vector[j]<<endl;
+                }
+            }
+        }
+    }
+    catch (const char* msg) {
+        cout << "Error: " << msg << endl;
+    }
+}
+
 void casefive (Transaccion vector [],int p){
     int ano;
+    try {
     cout << "Ingrese el año: ";
     cin >> ano;
-    cout << "Transacciones en el año"<< ano<< ":"<<endl;
-    for (int j=0;j<p;j++){
-        if (vector[j].getAño()==ano){
-            cout<<vector[j]<<endl;
+    if (ano<1){
+        throw "El año no puede ser menor a 1.";
+    } else {
+        cout << "Transacciones en el año"<< ano<< ":"<<endl;
+        for (int j=0;j<p;j++){
+            if (vector[j].getAño()==ano){
+                cout<<vector[j]<<endl;
+            }
         }
+    }
+    }
+    catch (const char* msg) {
+        cout << "Error: " << msg << endl;
     }
 }
 
@@ -274,8 +313,10 @@ void menuEmpleado(Cliente array[], int i, Transaccion vector[],int p, int a) {
     cout << "   4. En un mes determinado" << endl;
     cout << "   5. En un año determinado" << endl;
     cout << "   6. Todas" << endl;
+    cout << "   7. Salir" << endl;
 
     cin >> op;
+    try{
     switch (op) {
         case 1:
             caseone(array,i);
@@ -297,9 +338,15 @@ void menuEmpleado(Cliente array[], int i, Transaccion vector[],int p, int a) {
         case 6:
             casesix (vector,p);
             break;
+        case 7:
+            cout<<"Saliendo al menú principal..."<<endl;
         default:
-            cout<<"Opción no válida. Saliendo al menú incial..."<<endl;
+            throw "Opción no válida.";
             break;
+    }
+    }
+    catch (const char* msg) {
+        cout << "Error: " << msg << endl;
     }
 }
 
@@ -312,6 +359,7 @@ void menu(Cliente array[100], Transaccion vector[], int &i, int& p, int&a) {
         cout << "2. Empleado" << endl;
         cout << "3. Salir" << endl;
         cin >> op;
+        try{
         switch (op) {
             case 1:
                 menuCliente(array,vector,i, p,a);
@@ -319,10 +367,16 @@ void menu(Cliente array[100], Transaccion vector[], int &i, int& p, int&a) {
             case 2:
                 menuEmpleado(array, i, vector, p,a);
                 break;
-            default:
+            case 3:
                 cout << "Saliendo..." << endl;
                 break;
+            default:
+                throw "Opción no válida";
         }
+        }
+        catch (const char* msg) {
+        cout << "Error: " << msg << endl;
+    }
     }
 }
 
