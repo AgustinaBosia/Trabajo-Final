@@ -1,1 +1,2 @@
-123 agu 2024 1 2 12333 12333
+dni nombre ingreso estado nivel saldo_pesos saldo_dolares
+46385086 k 2024 1 3 -200 0

@@ -6,20 +6,21 @@ using namespace std;
 class Cliente;
 
 class Transaccion {
-    private:
+    public:
     int tipo;
     float monto;
     int mes;
-    int ano;
+    int ano, caja;
 
     public:
     Transaccion();
-    Transaccion(int mes, int ano, int tipo, float monto);
-    int getDia();
+    Transaccion(int mes, int ano, int tipo, float monto, int caja);
+    friend ostream& operator<<(ostream& os, const Transaccion& Tr);
     int getMes();
     int getAño();
     int getTipo();
     float getMonto();
+    int getCaja();
 };
 
 class Cuenta {
@@ -34,6 +35,12 @@ class Cuenta {
     void extraer(float monto, int moneda);
     float getCajaPeso();
     float getCajaDolar();
+    /*class fondosinsuf : public exception {
+    virtual const char* what ()const throw (){
+    return "Fondos insuficientes en la caja seleccionada.";
+    }
+    }
+    */
 };
 
 class Persona {
@@ -89,7 +96,7 @@ class Cliente : public Persona, public archivo {
     float getCajaPeso();
     float getCajaDolar();
     void bajaCuenta(Cliente[], int);
-    void realizTrans(float monto, int tipo, int moneda, int mes1, int ano1);
+    void realizTrans(float monto, int tipo, int moneda, int mes1, int ano1, int _caja);
     void mostrar_transacciones(int mes = 0, int ano = 0);
     friend ostream& operator<<(ostream& os, const Cliente& Cl);
 };

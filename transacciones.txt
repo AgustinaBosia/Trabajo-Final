@@ -1,0 +1,2 @@
+Mes Año Tipo Caja Monto 
+6 2024 2 1 400

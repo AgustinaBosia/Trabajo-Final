@@ -3,12 +3,13 @@
 
 // Implementación de los constructores y métodos de Transaccion
 
-Transaccion::Transaccion(int mes1, int ano1, int _tipo, float _monto)
+Transaccion::Transaccion(int mes1, int ano1, int _tipo, float _monto, int _caja)
 {
     mes = mes1;
     ano = ano1;
     tipo = _tipo;
     monto = _monto;
+    caja=_caja;
 }
 
 Transaccion::Transaccion()
@@ -18,7 +19,11 @@ Transaccion::Transaccion()
     tipo = 0;
     monto = 0;
 }
-
+ostream &operator<<(ostream &os, const Transaccion &Tr)
+{
+    os<<" Mes: "<<Tr.mes<<" Año: "<<Tr.ano<<" Monto: "<<Tr.monto <<" Caja: "<<Tr.caja;
+   return os;
+}
 int Transaccion::getMes()
 {
     return mes;
@@ -37,6 +42,10 @@ int Transaccion::getTipo()
 float Transaccion::getMonto()
 {
     return monto;
+}
+int Transaccion::getCaja()
+{
+    return caja;
 }
 
 // Implementación de los constructores y métodos de Cuenta
@@ -197,7 +206,7 @@ void Cliente::bajaCuenta(Cliente clientes[], int nroCliente) {
 
 }
 
-void Cliente::realizTrans(float _monto, int _tipo, int _moneda, int mes1, int ano1)
+void Cliente::realizTrans(float _monto, int _tipo, int _moneda, int mes1, int ano1, int _caja)
 {
     if (_tipo == 1)
     {
@@ -207,7 +216,7 @@ void Cliente::realizTrans(float _monto, int _tipo, int _moneda, int mes1, int an
     {
         cuent.extraer(_monto, _moneda);
     }
-    Transaccion trans(mes1, ano1, _tipo, _monto);
+    Transaccion trans(mes1, ano1, _tipo, _monto, _caja);
 }
 
 ostream &operator<<(ostream &os, const Cliente &Cl)
@@ -236,14 +245,14 @@ ostream &operator<<(ostream &os, const Cliente &Cl)
         est = "baja";
     }
 
-    os << "( nro: " << Cl.dni << ", nombre: " << Cl.nombre << ", año de ingreso: " << Cl.añoIngreso << ", estado: " << est << ", nivel: " << tip << ", cuenta pesos: " << "Cl.getCajaPeso()" << ", cuenta dolares: " << "a" << " )";
+    os << "( nro: " << Cl.dni << ", nombre: " << Cl.nombre << ", año de ingreso: " << Cl.añoIngreso << ", estado: " << est << ", nivel: " << tip << ", cuenta pesos: " << Cl.cuent.cajaPeso<< ", cuenta dolares: " << Cl.cuent.cajaDolar << " )";
     return os;
 }
 void Cliente :: mostrar_transacciones (int mes,int ano){
     cout << "Transacciones del cliente: "<< endl;
     for (int i=0; i <num_transacciones; ++i){
         if ((mes ==0 || transacciones[i].getMes ()==mes)&& (ano ==0|| transacciones [i].getAño ()==ano)){
-            cout <<"Fecha:"<<transacciones[i].getMes ()<< "/"<< transacciones [i].getAño ()<< ", Tipo:"<< transacciones [i].getTipo ()<< ", Monto:" <<transacciones [i].getMonto ()<< endl;
+            cout <<"Fecha:"<<transacciones[i].getMes ()<< "/"<< transacciones [i].getAño ()<< ", Tipo:"<< transacciones [i].getTipo ()<< ", Monto:" <<transacciones [i].getMonto ()<< ", Caja: " <<transacciones [i].getCaja () << endl;
             
         }
     }
@@ -281,7 +290,7 @@ archivo::archivo() {}
 
 void archivo::escrituraClientes(Cliente clientes[], int numClientes)
 {
-    ofstream variableescribe("clientes.txt");
+    ofstream variableescribe("clientes.txt", ios::app);
 
     if (!variableescribe)
     {
@@ -303,7 +312,7 @@ void archivo::escrituraClientes(Cliente clientes[], int numClientes)
 
 void archivo::escrituraTransacciones(Transaccion transacciones[], int numTransacciones)
 {
-    ofstream variableescribe("transacciones.txt");
+    ofstream variableescribe("transacciones.txt", ios::app);
 
     if (!variableescribe)
     {
@@ -316,6 +325,7 @@ void archivo::escrituraTransacciones(Transaccion transacciones[], int numTransac
         variableescribe << transacciones[i].getMes() << " "
                         << transacciones[i].getAño() << " "
                         << transacciones[i].getTipo() << " "
+                        << transacciones[i].getCaja() << " "
                         << transacciones[i].getMonto() << endl;
     }
 }
@@ -353,11 +363,11 @@ int archivo::lecturaTransacciones(Transaccion transacciones[])
     }
 
     int numTransacciones = 0;
-    int mes, ano, tipo;
+    int mes, ano, tipo, caja;
     float monto;
-    while (variablelectura >> mes >> ano >> tipo >> monto)
+    while (variablelectura >> mes >> ano >> tipo >> monto >> caja)
     {
-        transacciones[numTransacciones] = Transaccion(mes, ano, tipo, monto);
+        transacciones[numTransacciones] = Transaccion(mes, ano, tipo, monto, caja);
         ++numTransacciones;
     }
 
