@@ -71,7 +71,7 @@ class tarjetaCredit {
     tarjetaCredit();
 };
 
-class Cliente : public Persona, public archivo {
+class Cliente : public Persona {
     public:
     int estado, nivel;
     Cuenta cuent;
