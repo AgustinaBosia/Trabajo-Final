@@ -13,8 +13,8 @@ void verifInt(int& dato){
             }
         }
     catch (const invalid_argument& e) {
-            cin.clear(); // Limpia el estado de error de cin
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignora los caracteres restantes en el buffer
+            cin.clear(); // limpia el estado de error del cin>>
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // ignora los datos erroneos q quedaton en el buffer
             cout << "Error: " << e.what() << endl;
             cout << "Por favor, ingrese un número válido." << endl;
         }
